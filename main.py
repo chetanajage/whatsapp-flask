@@ -16,9 +16,13 @@ if not account_sid or not auth_token:
 from_whatsapp_number = "whatsapp:+14155238886"
 client = Client(account_sid, auth_token)
 
-@app.route("/", methods=["GET"])
-def home():
-    return "✅ WhatsApp Flask App Running on Railway!"
+@app.route("/debug-env")
+def debug_env():
+    return {
+        "account_sid": account_sid,
+        "auth_token_present": bool(auth_token)
+    }
+
 
 @app.route("/send-message", methods=["POST"])
 def send_message():
