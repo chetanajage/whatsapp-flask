@@ -3,16 +3,22 @@ from twilio.rest import Client
 from dotenv import load_dotenv
 import os
 
-load_dotenv()  # Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
 
-# Twilio credentials from environment variables
 account_sid = os.getenv("TWILIO_ACCOUNT_SID")
 auth_token = os.getenv("TWILIO_AUTH_TOKEN")
-from_whatsapp_number = "whatsapp:+14155238886"
 
+if not account_sid or not auth_token:
+    raise Exception("❌ TWILIO_ACCOUNT_SID or TWILIO_AUTH_TOKEN not found!")
+
+from_whatsapp_number = "whatsapp:+14155238886"
 client = Client(account_sid, auth_token)
+
+@app.route("/", methods=["GET"])
+def home():
+    return "✅ WhatsApp Flask App Running on Railway!"
 
 @app.route("/send-message", methods=["POST"])
 def send_message():
