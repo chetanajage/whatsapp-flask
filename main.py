@@ -1,13 +1,14 @@
 from flask import Flask, request
 from twilio.rest import Client
-import os
 from dotenv import load_dotenv
+import os
 
-load_dotenv()
+load_dotenv()  # Load environment variables from .env file
 
 app = Flask(__name__)
 
-account_sid = os.getenv("TWILIO_SID")
+# Twilio credentials from environment variables
+account_sid = os.getenv("TWILIO_ACCOUNT_SID")
 auth_token = os.getenv("TWILIO_AUTH_TOKEN")
 from_whatsapp_number = "whatsapp:+14155238886"
 
@@ -31,4 +32,3 @@ def send_message():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
